@@ -1,0 +1,482 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		AAE31354191EF70F00982DC8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE31353191EF70F00982DC8 /* Foundation.framework */; };
+		AAE31356191EF70F00982DC8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE31355191EF70F00982DC8 /* CoreGraphics.framework */; };
+		AAE31358191EF70F00982DC8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE31357191EF70F00982DC8 /* UIKit.framework */; };
+		AAE3135E191EF70F00982DC8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAE3135C191EF70F00982DC8 /* InfoPlist.strings */; };
+		AAE31360191EF70F00982DC8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE3135F191EF70F00982DC8 /* main.m */; };
+		AAE31364191EF70F00982DC8 /* GSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE31363191EF70F00982DC8 /* GSAppDelegate.m */; };
+		AAE3136A191EF70F00982DC8 /* GSMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE31369191EF70F00982DC8 /* GSMasterViewController.m */; };
+		AAE3136D191EF70F00982DC8 /* GSDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE3136C191EF70F00982DC8 /* GSDetailViewController.m */; };
+		AAE3136F191EF70F00982DC8 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AAE3136E191EF70F00982DC8 /* Images.xcassets */; };
+		AAE31376191EF70F00982DC8 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE31375191EF70F00982DC8 /* XCTest.framework */; };
+		AAE31377191EF70F00982DC8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE31353191EF70F00982DC8 /* Foundation.framework */; };
+		AAE31378191EF70F00982DC8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE31357191EF70F00982DC8 /* UIKit.framework */; };
+		AAE31380191EF70F00982DC8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAE3137E191EF70F00982DC8 /* InfoPlist.strings */; };
+		AAE31382191EF70F00982DC8 /* GSSplitViewControllerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE31381191EF70F00982DC8 /* GSSplitViewControllerDemoTests.m */; };
+		AAE3138E191EF74E00982DC8 /* GSSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE3138D191EF74E00982DC8 /* GSSplitViewController.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AAE31379191EF70F00982DC8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = AAE31348191EF70F00982DC8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = AAE3134F191EF70F00982DC8;
+			remoteInfo = GSSplitViewControllerDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		AAE31350191EF70F00982DC8 /* GSSplitViewControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GSSplitViewControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAE31353191EF70F00982DC8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		AAE31355191EF70F00982DC8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		AAE31357191EF70F00982DC8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		AAE3135B191EF70F00982DC8 /* GSSplitViewControllerDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GSSplitViewControllerDemo-Info.plist"; sourceTree = "<group>"; };
+		AAE3135D191EF70F00982DC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AAE3135F191EF70F00982DC8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		AAE31361191EF70F00982DC8 /* GSSplitViewControllerDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "GSSplitViewControllerDemo-Prefix.pch"; sourceTree = "<group>"; };
+		AAE31362191EF70F00982DC8 /* GSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSAppDelegate.h; sourceTree = "<group>"; };
+		AAE31363191EF70F00982DC8 /* GSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSAppDelegate.m; sourceTree = "<group>"; };
+		AAE31368191EF70F00982DC8 /* GSMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSMasterViewController.h; sourceTree = "<group>"; };
+		AAE31369191EF70F00982DC8 /* GSMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSMasterViewController.m; sourceTree = "<group>"; };
+		AAE3136B191EF70F00982DC8 /* GSDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GSDetailViewController.h; sourceTree = "<group>"; };
+		AAE3136C191EF70F00982DC8 /* GSDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSDetailViewController.m; sourceTree = "<group>"; };
+		AAE3136E191EF70F00982DC8 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		AAE31374191EF70F00982DC8 /* GSSplitViewControllerDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GSSplitViewControllerDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AAE31375191EF70F00982DC8 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		AAE3137D191EF70F00982DC8 /* GSSplitViewControllerDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GSSplitViewControllerDemoTests-Info.plist"; sourceTree = "<group>"; };
+		AAE3137F191EF70F00982DC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		AAE31381191EF70F00982DC8 /* GSSplitViewControllerDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSSplitViewControllerDemoTests.m; sourceTree = "<group>"; };
+		AAE3138C191EF74E00982DC8 /* GSSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSplitViewController.h; sourceTree = "<group>"; };
+		AAE3138D191EF74E00982DC8 /* GSSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSSplitViewController.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		AAE3134D191EF70F00982DC8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAE31356191EF70F00982DC8 /* CoreGraphics.framework in Frameworks */,
+				AAE31358191EF70F00982DC8 /* UIKit.framework in Frameworks */,
+				AAE31354191EF70F00982DC8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAE31371191EF70F00982DC8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAE31376191EF70F00982DC8 /* XCTest.framework in Frameworks */,
+				AAE31378191EF70F00982DC8 /* UIKit.framework in Frameworks */,
+				AAE31377191EF70F00982DC8 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		AAE31347191EF70F00982DC8 = {
+			isa = PBXGroup;
+			children = (
+				AAE31359191EF70F00982DC8 /* GSSplitViewControllerDemo */,
+				AAE3137B191EF70F00982DC8 /* GSSplitViewControllerDemoTests */,
+				AAE31352191EF70F00982DC8 /* Frameworks */,
+				AAE31351191EF70F00982DC8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		AAE31351191EF70F00982DC8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AAE31350191EF70F00982DC8 /* GSSplitViewControllerDemo.app */,
+				AAE31374191EF70F00982DC8 /* GSSplitViewControllerDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		AAE31352191EF70F00982DC8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AAE31353191EF70F00982DC8 /* Foundation.framework */,
+				AAE31355191EF70F00982DC8 /* CoreGraphics.framework */,
+				AAE31357191EF70F00982DC8 /* UIKit.framework */,
+				AAE31375191EF70F00982DC8 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		AAE31359191EF70F00982DC8 /* GSSplitViewControllerDemo */ = {
+			isa = PBXGroup;
+			children = (
+				AAE3138B191EF72700982DC8 /* GSSplitViewController */,
+				AAE31362191EF70F00982DC8 /* GSAppDelegate.h */,
+				AAE31363191EF70F00982DC8 /* GSAppDelegate.m */,
+				AAE31368191EF70F00982DC8 /* GSMasterViewController.h */,
+				AAE31369191EF70F00982DC8 /* GSMasterViewController.m */,
+				AAE3136B191EF70F00982DC8 /* GSDetailViewController.h */,
+				AAE3136C191EF70F00982DC8 /* GSDetailViewController.m */,
+				AAE3136E191EF70F00982DC8 /* Images.xcassets */,
+				AAE3135A191EF70F00982DC8 /* Supporting Files */,
+			);
+			path = GSSplitViewControllerDemo;
+			sourceTree = "<group>";
+		};
+		AAE3135A191EF70F00982DC8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AAE3135B191EF70F00982DC8 /* GSSplitViewControllerDemo-Info.plist */,
+				AAE3135C191EF70F00982DC8 /* InfoPlist.strings */,
+				AAE3135F191EF70F00982DC8 /* main.m */,
+				AAE31361191EF70F00982DC8 /* GSSplitViewControllerDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AAE3137B191EF70F00982DC8 /* GSSplitViewControllerDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				AAE31381191EF70F00982DC8 /* GSSplitViewControllerDemoTests.m */,
+				AAE3137C191EF70F00982DC8 /* Supporting Files */,
+			);
+			path = GSSplitViewControllerDemoTests;
+			sourceTree = "<group>";
+		};
+		AAE3137C191EF70F00982DC8 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				AAE3137D191EF70F00982DC8 /* GSSplitViewControllerDemoTests-Info.plist */,
+				AAE3137E191EF70F00982DC8 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		AAE3138B191EF72700982DC8 /* GSSplitViewController */ = {
+			isa = PBXGroup;
+			children = (
+				AAE3138C191EF74E00982DC8 /* GSSplitViewController.h */,
+				AAE3138D191EF74E00982DC8 /* GSSplitViewController.m */,
+			);
+			name = GSSplitViewController;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		AAE3134F191EF70F00982DC8 /* GSSplitViewControllerDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAE31385191EF70F00982DC8 /* Build configuration list for PBXNativeTarget "GSSplitViewControllerDemo" */;
+			buildPhases = (
+				AAE3134C191EF70F00982DC8 /* Sources */,
+				AAE3134D191EF70F00982DC8 /* Frameworks */,
+				AAE3134E191EF70F00982DC8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GSSplitViewControllerDemo;
+			productName = GSSplitViewControllerDemo;
+			productReference = AAE31350191EF70F00982DC8 /* GSSplitViewControllerDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		AAE31373191EF70F00982DC8 /* GSSplitViewControllerDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AAE31388191EF70F00982DC8 /* Build configuration list for PBXNativeTarget "GSSplitViewControllerDemoTests" */;
+			buildPhases = (
+				AAE31370191EF70F00982DC8 /* Sources */,
+				AAE31371191EF70F00982DC8 /* Frameworks */,
+				AAE31372191EF70F00982DC8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AAE3137A191EF70F00982DC8 /* PBXTargetDependency */,
+			);
+			name = GSSplitViewControllerDemoTests;
+			productName = GSSplitViewControllerDemoTests;
+			productReference = AAE31374191EF70F00982DC8 /* GSSplitViewControllerDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		AAE31348191EF70F00982DC8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = GS;
+				LastUpgradeCheck = 0510;
+				ORGANIZATIONNAME = "Christian Gossain";
+				TargetAttributes = {
+					AAE31373191EF70F00982DC8 = {
+						TestTargetID = AAE3134F191EF70F00982DC8;
+					};
+				};
+			};
+			buildConfigurationList = AAE3134B191EF70F00982DC8 /* Build configuration list for PBXProject "GSSplitViewControllerDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = AAE31347191EF70F00982DC8;
+			productRefGroup = AAE31351191EF70F00982DC8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				AAE3134F191EF70F00982DC8 /* GSSplitViewControllerDemo */,
+				AAE31373191EF70F00982DC8 /* GSSplitViewControllerDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		AAE3134E191EF70F00982DC8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAE3136F191EF70F00982DC8 /* Images.xcassets in Resources */,
+				AAE3135E191EF70F00982DC8 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAE31372191EF70F00982DC8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAE31380191EF70F00982DC8 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		AAE3134C191EF70F00982DC8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAE3138E191EF74E00982DC8 /* GSSplitViewController.m in Sources */,
+				AAE3136A191EF70F00982DC8 /* GSMasterViewController.m in Sources */,
+				AAE31364191EF70F00982DC8 /* GSAppDelegate.m in Sources */,
+				AAE31360191EF70F00982DC8 /* main.m in Sources */,
+				AAE3136D191EF70F00982DC8 /* GSDetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AAE31370191EF70F00982DC8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AAE31382191EF70F00982DC8 /* GSSplitViewControllerDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AAE3137A191EF70F00982DC8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = AAE3134F191EF70F00982DC8 /* GSSplitViewControllerDemo */;
+			targetProxy = AAE31379191EF70F00982DC8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		AAE3135C191EF70F00982DC8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AAE3135D191EF70F00982DC8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		AAE3137E191EF70F00982DC8 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				AAE3137F191EF70F00982DC8 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		AAE31383191EF70F00982DC8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+			};
+			name = Debug;
+		};
+		AAE31384191EF70F00982DC8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = 2;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		AAE31386191EF70F00982DC8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GSSplitViewControllerDemo/GSSplitViewControllerDemo-Prefix.pch";
+				INFOPLIST_FILE = "GSSplitViewControllerDemo/GSSplitViewControllerDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		AAE31387191EF70F00982DC8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GSSplitViewControllerDemo/GSSplitViewControllerDemo-Prefix.pch";
+				INFOPLIST_FILE = "GSSplitViewControllerDemo/GSSplitViewControllerDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		AAE31389191EF70F00982DC8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GSSplitViewControllerDemo.app/GSSplitViewControllerDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GSSplitViewControllerDemo/GSSplitViewControllerDemo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "GSSplitViewControllerDemoTests/GSSplitViewControllerDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		AAE3138A191EF70F00982DC8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/GSSplitViewControllerDemo.app/GSSplitViewControllerDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "GSSplitViewControllerDemo/GSSplitViewControllerDemo-Prefix.pch";
+				INFOPLIST_FILE = "GSSplitViewControllerDemoTests/GSSplitViewControllerDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		AAE3134B191EF70F00982DC8 /* Build configuration list for PBXProject "GSSplitViewControllerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAE31383191EF70F00982DC8 /* Debug */,
+				AAE31384191EF70F00982DC8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AAE31385191EF70F00982DC8 /* Build configuration list for PBXNativeTarget "GSSplitViewControllerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAE31386191EF70F00982DC8 /* Debug */,
+				AAE31387191EF70F00982DC8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		AAE31388191EF70F00982DC8 /* Build configuration list for PBXNativeTarget "GSSplitViewControllerDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AAE31389191EF70F00982DC8 /* Debug */,
+				AAE3138A191EF70F00982DC8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = AAE31348191EF70F00982DC8 /* Project object */;
+}
