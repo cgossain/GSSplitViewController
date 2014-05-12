@@ -238,6 +238,7 @@
     [self addChildViewController:contentViewController];
     
     contentViewController.view.frame = [self masterPaneFrameForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
+    contentViewController.view.clipsToBounds = YES;
     
     [self.view addSubview:contentViewController.view];
     
@@ -250,6 +251,7 @@
     [self addChildViewController:contentViewController];
     
     contentViewController.view.frame = [self detailPaneFrameForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
+    contentViewController.view.clipsToBounds = YES;
     
     [self.view addSubview:contentViewController.view];
     
