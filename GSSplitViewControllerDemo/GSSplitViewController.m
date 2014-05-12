@@ -182,17 +182,17 @@
     
 }
 
-//#pragma mark - Interface Orientation
-//
-//- (NSUInteger)supportedInterfaceOrientations {
-//    
-//    if ([self.delegate respondsToSelector:@selector(splitViewControllerSupportedInterfaceOrientations:)]) {
-//        return [self.delegate splitViewControllerSupportedInterfaceOrientations:self];
-//    }
-//    
-//    return UIInterfaceOrientationMaskAll;
-//    
-//}
+#pragma mark - Interface Orientation
+
+- (NSUInteger)supportedInterfaceOrientations {
+    
+    if ([self.delegate respondsToSelector:@selector(splitViewControllerSupportedInterfaceOrientations:)]) {
+        return [self.delegate splitViewControllerSupportedInterfaceOrientations:self];
+    }
+    
+    return UIInterfaceOrientationMaskAll;
+    
+}
 
 #pragma mark - Rotation
 
