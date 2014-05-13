@@ -27,7 +27,7 @@
 #define GS_INTERFACE_IS_LANDSCAPE UIInterfaceOrientationIsLandscape(GS_STATUS_BAR_ORIENTATION())
 #define GS_INTERFACE_IS_PORTRAIT UIInterfaceOrientationIsPortrait(GS_STATUS_BAR_ORIENTATION())
 
-#define kDivderWidth 1.0f
+#define kDivderWidth 1.0f / [[UIScreen mainScreen] scale]
 
 #define kSwipeXDirectionThreshold 60.0  // gesture needs to be greater than this value in the X direction to be considered a swipe
 
@@ -59,7 +59,7 @@
         _masterPaneWidth = 320.0f;
         _presentsWithGesture = YES;
         
-        [_detailPanGestureRecognizer requireGestureRecognizerToFail:_detailTapGestureRecognizer];
+        //[_detailPanGestureRecognizer requireGestureRecognizerToFail:_detailTapGestureRecognizer];
         
         _dividerView = [[UIView alloc] init];
         _dividerView.backgroundColor = [UIColor darkGrayColor];
@@ -104,9 +104,6 @@
     
     // add master on top of the detail view
     [self addMasterViewController:master];
-    
-    // add tap gesture recognizer
-    [detail.view addGestureRecognizer:self.detailTapGestureRecognizer];
     
     // add pan gesture recognizer
     if (self.presentsWithGesture) {
@@ -288,6 +285,7 @@
                                 options:UIViewAnimationOptionCurveEaseOut
                              animations:^{
                                  [weakSelf adjustFramesForInterfaceOrientation:interfaceOrientation];
+                                 [weakSelf configureTapGestureRegonizer];
                              }
                              completion:nil];
             
@@ -316,6 +314,7 @@
                                 options:UIViewAnimationOptionCurveEaseOut
                              animations:^{
                                  [weakSelf adjustFramesForInterfaceOrientation:interfaceOrientation];
+                                 [weakSelf configureTapGestureRegonizer];
                              }
                              completion:nil];
             
@@ -380,6 +379,11 @@
                 }
                 
             }
+            
+        }
+        else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
+            
+            [self configureTapGestureRegonizer];
             
         }
         
@@ -474,6 +478,21 @@
     }
     else {
         return NO;
+    }
+    
+}
+
+- (void)configureTapGestureRegonizer {
+    
+    UIViewController *detail = [self.viewControllers objectAtIndex:1];
+    
+    if (_isMasterVisible) {
+        // add the tap gesture recognizer
+        [detail.view addGestureRecognizer:self.detailTapGestureRecognizer];
+    }
+    else {
+        // remove the tap gesture recognizer
+        [detail.view removeGestureRecognizer:self.detailTapGestureRecognizer];
     }
     
 }

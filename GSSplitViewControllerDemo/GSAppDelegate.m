@@ -31,7 +31,7 @@
     GSSplitViewController *splitViewController = [[GSSplitViewController alloc] init];
     splitViewController.delegate = detailViewController;
     splitViewController.viewControllers = @[nav1, nav2];
-    splitViewController.presentsWithGesture = NO;
+    //splitViewController.presentsWithGesture = NO;
     
     //splitViewController.masterPaneWidth = 480.0f;
     
