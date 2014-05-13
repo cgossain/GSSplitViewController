@@ -47,6 +47,8 @@
     
     BOOL _isMasterVisible;
     CGPoint _lastGestureLocation;
+    
+    BOOL _didLayoutViewControllers;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -93,22 +95,28 @@
     
     [super viewWillLayoutSubviews];
     
-    UIViewController *master = [self.viewControllers objectAtIndex:0];
-    UIViewController *detail = [self.viewControllers objectAtIndex:1];
-    
-    // add the detail view
-    [self addDetailViewController:detail];
-    
-    // add the master view
-    [self addMasterViewController:master];
-    
-    // add the divider
-    self.dividerView.frame = [self dividerFrameForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
-    [self.view addSubview:self.dividerView];
-    
-    // add pan gesture recognizer
-    if (self.presentsWithGesture) {
-        [detail.view addGestureRecognizer:self.detailPanGestureRecognizer];
+    if (!_didLayoutViewControllers) {
+        
+        UIViewController *master = [self.viewControllers objectAtIndex:0];
+        UIViewController *detail = [self.viewControllers objectAtIndex:1];
+        
+        // add the detail view
+        [self addDetailViewController:detail];
+        
+        // add the master view
+        [self addMasterViewController:master];
+        
+        // add the divider
+        self.dividerView.frame = [self dividerFrameForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
+        [self.view addSubview:self.dividerView];
+        
+        // add pan gesture recognizer
+        if (self.presentsWithGesture) {
+            [detail.view addGestureRecognizer:self.detailPanGestureRecognizer];
+        }
+        
+        _didLayoutViewControllers = YES;
+        
     }
     
 }
