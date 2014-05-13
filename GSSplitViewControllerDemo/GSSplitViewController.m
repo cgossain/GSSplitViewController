@@ -96,14 +96,15 @@
     UIViewController *master = [self.viewControllers objectAtIndex:0];
     UIViewController *detail = [self.viewControllers objectAtIndex:1];
     
+    // add the detail view
     [self addDetailViewController:detail];
     
-    // add the divider view on top of the detail view but below the master (in case master content wants to overlap the divider
+    // add the master view
+    [self addMasterViewController:master];
+    
+    // add the divider
     self.dividerView.frame = [self dividerFrameForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
     [self.view addSubview:self.dividerView];
-    
-    // add master on top of the detail view
-    [self addMasterViewController:master];
     
     // add pan gesture recognizer
     if (self.presentsWithGesture) {
@@ -430,7 +431,7 @@
 
 - (CGRect)detailPaneFrameForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     
-    CGFloat xOffset = self.masterPaneWidth + kDivderWidth;
+    CGFloat xOffset = self.masterPaneWidth;
     
     if (UIInterfaceOrientationIsPortrait(interfaceOrientation) && [self shouldHideMasterViewControllerInOrientation:interfaceOrientation]) {
         xOffset = 0.0f;
@@ -444,7 +445,7 @@
     
     CGRect masterFrame = [self masterPaneFrameForInterfaceOrientation:interfaceOrientation];
     
-    return CGRectMake(masterFrame.origin.x + masterFrame.size.width, masterFrame.origin.y, kDivderWidth, masterFrame.size.height);
+    return CGRectMake(masterFrame.origin.x + masterFrame.size.width - kDivderWidth, masterFrame.origin.y, kDivderWidth, masterFrame.size.height);
     
 }
 
