@@ -118,6 +118,12 @@
         _didLayoutViewControllers = YES;
         
     }
+    else {
+        
+        // updates the view frames
+        [self adjustFramesForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
+        
+    }
     
 }
 
