@@ -65,6 +65,13 @@
  */
 @property (nonatomic, getter = isMasterPaneShownOnInitialRotationToPortrait) BOOL masterPaneShownOnInitialRotationToPortrait;
 
+/**
+ If the master pane can be hidden in portrait orientation (see GSSplitViewControllerDelegate), this method can either hide or show the master pane.
+ @param masterPaneShown A boolean specifing wether the master pane is shown or not.
+ @param animated A boolean specifing wether the transition should be animated.
+ */
+- (void)setMasterPaneShown:(BOOL)masterPaneShown animated:(BOOL)animated;
+
 @end
 
 //_______________________________________________________________________________________________________________

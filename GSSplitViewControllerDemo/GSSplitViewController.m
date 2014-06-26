@@ -130,6 +130,37 @@
     
 }
 
+#pragma mark - Methods (Public)
+
+- (void)setMasterPaneShown:(BOOL)masterPaneShown animated:(BOOL)animated {
+    
+    _isMasterVisible = masterPaneShown;
+    
+    if (animated) {
+        
+        GSSplitViewController *__weak weakSelf = self;
+        
+        [UIView animateWithDuration:0.2
+                              delay:0.0
+                            options:UIViewAnimationOptionCurveEaseOut
+                         animations:^{
+                             
+                             GSSplitViewController *strongSelf = weakSelf;
+                             
+                             [strongSelf adjustFramesForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
+                             
+                         }
+                         completion:nil];
+        
+    }
+    else {
+        
+        [self adjustFramesForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
+        
+    }
+    
+}
+
 #pragma mark - Setters
 
 - (void)setViewControllers:(NSArray *)viewControllers {
@@ -194,6 +225,13 @@
         }
         
     }
+    
+}
+
+-(void)setMasterPaneShownOnInitialRotationToPortrait:(BOOL)masterPaneShownOnInitialRotationToPortrait {
+    
+    _masterPaneShownOnInitialRotationToPortrait = masterPaneShownOnInitialRotationToPortrait;
+    _isMasterVisible = masterPaneShownOnInitialRotationToPortrait;
     
 }
 
