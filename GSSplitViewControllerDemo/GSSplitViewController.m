@@ -70,8 +70,6 @@
                                                          target:self
                                                          action:@selector(showMasterPaneBarButtonItemTapped:)];
         
-        _isMasterVisible = YES;
-        
     }
     return self;
 }
