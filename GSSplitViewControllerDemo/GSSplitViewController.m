@@ -23,7 +23,6 @@
 
 #import "GSSplitViewController.h"
 
-#define GS_STATUS_BAR_ORIENTATION() [[UIApplication sharedApplication] statusBarOrientation]
 #define GS_INTERFACE_IS_LANDSCAPE UIInterfaceOrientationIsLandscape(GS_STATUS_BAR_ORIENTATION())
 #define GS_INTERFACE_IS_PORTRAIT UIInterfaceOrientationIsPortrait(GS_STATUS_BAR_ORIENTATION())
 
@@ -65,6 +64,13 @@
         
         _dividerView = [[UIView alloc] init];
         _dividerView.backgroundColor = [UIColor darkGrayColor];
+        
+        _barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
+                                                          style:UIBarButtonItemStylePlain
+                                                         target:self
+                                                         action:@selector(showMasterPaneBarButtonItemTapped:)];
+        
+        _isMasterVisible = YES;
         
     }
     return self;
@@ -120,8 +126,7 @@
     }
     else {
         
-        // updates the view frames
-        [self adjustFramesForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
+        [self updateSplitViewForOrientation:GS_STATUS_BAR_ORIENTATION()];
         
     }
     
@@ -210,6 +215,8 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     
+    [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
     if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
         
         [self splitViewWillRotateToPortraitOrientation];
@@ -231,9 +238,11 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     
+    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+    
     // this rotation method is called from an animation block, therefore the following changes will be animated
     if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
-        _isMasterVisible = NO;
+        _isMasterVisible = self.masterPaneShownOnInitialRotationToPortrait; // default state of the master pane when rotating to portrait
     }
     else {
         _isMasterVisible = YES;
@@ -439,6 +448,8 @@
         
     }
     
+    //NSLog(@"Should Adjust Master Frame To X: %f, Y: %f, W: %f, H: %f", xOffset, 0.0f, self.masterPaneWidth, self.view.bounds.size.height);
+    
     return CGRectMake(xOffset, 0.0f, self.masterPaneWidth, self.view.bounds.size.height);
     
 }
@@ -508,6 +519,31 @@
     else {
         // remove the tap gesture recognizer
         [detail.view removeGestureRecognizer:self.detailTapGestureRecognizer];
+    }
+    
+}
+
+#pragma mark - Helpers (Layout Update)
+
+- (void)updateSplitViewForOrientation:(UIInterfaceOrientation)orientation {
+    
+    [self adjustFramesForInterfaceOrientation:orientation];
+    
+    if (UIInterfaceOrientationIsPortrait(orientation)) {
+        
+        [self splitViewWillRotateToPortraitOrientation];
+        
+    }
+    else if (UIInterfaceOrientationIsLandscape(orientation)) {
+        
+        if ([self.delegate respondsToSelector:@selector(splitViewController:willShowViewController:invalidatingBarButtonItem:)]) {
+            
+            [self.delegate splitViewController:self
+                        willShowViewController:self.viewControllers[0]
+                     invalidatingBarButtonItem:self.barButtonItem];
+            
+        }
+        
     }
     
 }

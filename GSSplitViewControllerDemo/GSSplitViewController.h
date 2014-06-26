@@ -23,6 +23,8 @@
 
 #import <UIKit/UIKit.h>
 
+#define GS_STATUS_BAR_ORIENTATION() [[UIApplication sharedApplication] statusBarOrientation]
+
 @protocol GSSplitViewControllerDelegate;
 
 @interface GSSplitViewController : UIViewController
@@ -52,6 +54,16 @@
  The default value is 320.0f.
  */
 @property (nonatomic) CGFloat masterPaneWidth;
+
+/**
+ The bar button item associated with the master pane hide and show action.
+ */
+@property (nonatomic, strong, readonly) UIBarButtonItem *barButtonItem;
+
+/**
+ If the master pane can be hidden in portrait orientation (see GSSplitViewControllerDelegate), this boolean determines the initial state of the master pane (i.e. shown or hidden) when the device is rotated to portrait orientation.
+ */
+@property (nonatomic, getter = isMasterPaneShownOnInitialRotationToPortrait) BOOL masterPaneShownOnInitialRotationToPortrait;
 
 @end
 
