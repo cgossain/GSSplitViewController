@@ -23,8 +23,7 @@
 
 #import "GSSplitViewController.h"
 
-#define GS_INTERFACE_IS_LANDSCAPE UIInterfaceOrientationIsLandscape(GS_STATUS_BAR_ORIENTATION())
-#define GS_INTERFACE_IS_PORTRAIT UIInterfaceOrientationIsPortrait(GS_STATUS_BAR_ORIENTATION())
+#define DEBUG_LAYOUT 0
 
 #define kDivderWidth 1.0f / [[UIScreen mainScreen] scale]
 
@@ -38,6 +37,8 @@
 @property (strong, nonatomic) UIView *dividerView;
 
 @property (strong, nonatomic) UIBarButtonItem *barButtonItem;
+
+@property (strong, nonatomic) UIView *gestureOverlayView;
 
 @end
 
@@ -57,13 +58,19 @@
         // Custom initialization
         _detailPanGestureRecognizer = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(handlePanGesture:)];
         _detailTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTapGesture:)];
+        
+        _gestureOverlayView = [[UIView alloc] init];
+        
+#if DEBUG_LAYOUT
+        _gestureOverlayView.layer.borderColor = [UIColor greenColor].CGColor;
+        _gestureOverlayView.layer.borderWidth = 2.0f;
+#endif
+        
         _masterPaneWidth = 320.0f;
         _presentsWithGesture = YES;
         
-        //[_detailPanGestureRecognizer requireGestureRecognizerToFail:_detailTapGestureRecognizer];
-        
         _dividerView = [[UIView alloc] init];
-        _dividerView.backgroundColor = [UIColor darkGrayColor];
+        _dividerView.backgroundColor = [[UIColor blackColor] colorWithAlphaComponent:38.0f/255.0f];
         
         _barButtonItem = [[UIBarButtonItem alloc] initWithTitle:@""
                                                           style:UIBarButtonItemStylePlain
@@ -81,11 +88,6 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.view.backgroundColor = [UIColor colorWithRed:142.0f/255.0f green:142.0f/255.0f blue:147.0f/255.0f alpha:1.0f];
-    
-    // If the interface orientation is Portrait, this method will call the delegate to give it a chance to add a bar button item to it's nav bar.
-    if ([self shouldHideMasterViewControllerInOrientation:GS_STATUS_BAR_ORIENTATION()]) {
-        [self splitViewWillRotateToPortraitOrientation];
-    }
     
 }
 
@@ -110,23 +112,25 @@
         // add the master view
         [self addMasterViewController:master];
         
-        // add the divider
-        self.dividerView.frame = [self dividerFrameForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
+        // add the divider as a subview
         [self.view addSubview:self.dividerView];
         
-        // add pan gesture recognizer
-        if (self.presentsWithGesture) {
-            [detail.view addGestureRecognizer:self.detailPanGestureRecognizer];
+        if ([self masterPaneCanBePresentedInOrientation:GS_STATUS_BAR_ORIENTATION()]) {
+            
+            // ensure that the master is visible according to the 'isMasterPaneShown...' property
+            _isMasterVisible = self.isMasterPaneShownOnInitialRotationToPortrait;
+            
+            // ensure that the delegate has a chance to add a bar button item if the view will be laid out in portrait
+            [self splitViewWillRotateToPortraitOrientation];
+            
         }
         
         _didLayoutViewControllers = YES;
         
     }
-    else {
-        
-        [self updateSplitViewForOrientation:GS_STATUS_BAR_ORIENTATION()];
-        
-    }
+    
+    // update the layout for the current orientation
+    [self updateSplitViewForOrientation:GS_STATUS_BAR_ORIENTATION()];
     
 }
 
@@ -134,28 +138,35 @@
 
 - (void)setMasterPaneShown:(BOOL)masterPaneShown animated:(BOOL)animated {
     
-    _isMasterVisible = masterPaneShown;
-    
-    if (animated) {
+    // only bother if the master pane can be shown
+    if ([self masterPaneCanBePresentedInOrientation:GS_STATUS_BAR_ORIENTATION()]) {
         
-        GSSplitViewController *__weak weakSelf = self;
+        _isMasterVisible = masterPaneShown;
         
-        [UIView animateWithDuration:0.2
-                              delay:0.0
-                            options:UIViewAnimationOptionCurveEaseOut
-                         animations:^{
-                             
-                             GSSplitViewController *strongSelf = weakSelf;
-                             
-                             [strongSelf adjustFramesForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
-                             
-                         }
-                         completion:nil];
-        
-    }
-    else {
-        
-        [self adjustFramesForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
+        if (animated) {
+            
+            GSSplitViewController *__weak weakSelf = self;
+            
+            [UIView animateWithDuration:0.2
+                                  delay:0.0
+                                options:UIViewAnimationOptionCurveEaseOut
+                             animations:^{
+                                 
+                                 GSSplitViewController *strongSelf = weakSelf;
+                                 
+                                 [strongSelf adjustFramesForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
+                                 [strongSelf configureGestureRecognizersForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
+                                 
+                             }
+                             completion:nil];
+            
+        }
+        else {
+            
+            [self adjustFramesForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
+            [self configureGestureRecognizersForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
+            
+        }
         
     }
     
@@ -184,11 +195,6 @@
             [self removeContentViewController:viewController];
         }
         
-        UIViewController *detail = [self.viewControllers objectAtIndex:1];
-        
-        [detail.view removeGestureRecognizer:self.detailTapGestureRecognizer];
-        [detail.view removeGestureRecognizer:self.detailPanGestureRecognizer];
-        
     }
     
     _viewControllers = [viewControllers copy];
@@ -211,27 +217,10 @@
         
         _presentsWithGesture = presentsWithGesture;
         
-        if (_viewControllers) {
-            
-            if (presentsWithGesture) {
-                UIViewController *detail = [self.viewControllers objectAtIndex:1];
-                [detail.view addGestureRecognizer:self.detailPanGestureRecognizer];
-            }
-            else {
-                UIViewController *detail = [self.viewControllers objectAtIndex:1];
-                [detail.view removeGestureRecognizer:self.detailPanGestureRecognizer];
-            }
-            
-        }
+        // update the gesture recognizers
+        [self configureGestureRecognizersForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
         
     }
-    
-}
-
--(void)setMasterPaneShownOnInitialRotationToPortrait:(BOOL)masterPaneShownOnInitialRotationToPortrait {
-    
-    _masterPaneShownOnInitialRotationToPortrait = masterPaneShownOnInitialRotationToPortrait;
-    _isMasterVisible = masterPaneShownOnInitialRotationToPortrait;
     
 }
 
@@ -281,7 +270,7 @@
         _isMasterVisible = self.masterPaneShownOnInitialRotationToPortrait; // default state of the master pane when rotating to portrait
     }
     else {
-        _isMasterVisible = YES;
+        _isMasterVisible = YES; // master always shown in landscape orientation
     }
     
     [self adjustFramesForInterfaceOrientation:toInterfaceOrientation];
@@ -330,28 +319,7 @@
 
 - (void)showMasterPaneBarButtonItemTapped:(UIBarButtonItem *)item {
     
-    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    if (UIInterfaceOrientationIsPortrait(interfaceOrientation) && [self shouldHideMasterViewControllerInOrientation:interfaceOrientation]) {
-        
-        if (!_isMasterVisible) {
-            
-            GSSplitViewController *__weak weakSelf = self;
-            
-            _isMasterVisible = YES;
-            
-            [UIView animateWithDuration:0.2
-                                  delay:0.0
-                                options:UIViewAnimationOptionCurveEaseOut
-                             animations:^{
-                                 [weakSelf adjustFramesForInterfaceOrientation:interfaceOrientation];
-                                 [weakSelf configureTapGestureRegonizer];
-                             }
-                             completion:nil];
-            
-        }
-        
-    }
+    [self setMasterPaneShown:!_isMasterVisible animated:YES];
     
 }
 
@@ -359,36 +327,14 @@
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)gestureRecognizer {
     
-    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    if (UIInterfaceOrientationIsPortrait(interfaceOrientation) && [self shouldHideMasterViewControllerInOrientation:interfaceOrientation]) {
-        
-        if (_isMasterVisible) {
-            
-            GSSplitViewController *__weak weakSelf = self;
-            
-            _isMasterVisible = NO;
-            
-            [UIView animateWithDuration:0.2
-                                  delay:0.0
-                                options:UIViewAnimationOptionCurveEaseOut
-                             animations:^{
-                                 [weakSelf adjustFramesForInterfaceOrientation:interfaceOrientation];
-                                 [weakSelf configureTapGestureRegonizer];
-                             }
-                             completion:nil];
-            
-        }
-        
-    }
+    [self setMasterPaneShown:NO animated:YES];
     
 }
 
 - (void)handlePanGesture:(UIPanGestureRecognizer *)gestureRecognizer {
     
-    UIInterfaceOrientation interfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
-    
-    if (UIInterfaceOrientationIsPortrait(interfaceOrientation) && [self shouldHideMasterViewControllerInOrientation:interfaceOrientation]) {
+    // only bother panning the master pane if it can be shown
+    if ([self masterPaneCanBePresentedInOrientation:GS_STATUS_BAR_ORIENTATION()]) {
         
         CGPoint location = [gestureRecognizer locationInView:self.view];
         
@@ -399,51 +345,36 @@
         }
         else if (gestureRecognizer.state == UIGestureRecognizerStateChanged) {
             
-            GSSplitViewController *__weak weakSelf = self;
-            
             CGFloat diffX = location.x - _lastGestureLocation.x;
             
             if (diffX < 0) {
+                
                 // overall left movement
                 if (fabsf(diffX) > kSwipeXDirectionThreshold) {
+                    
                     // hide the master view
-                    _isMasterVisible = NO;
+                    [self setMasterPaneShown:NO animated:YES];
                     
-                    [UIView animateWithDuration:0.2
-                                          delay:0.0
-                                        options:UIViewAnimationOptionCurveEaseOut
-                                     animations:^{
-                                         [weakSelf adjustFramesForInterfaceOrientation:interfaceOrientation];
-                                     }
-                                     completion:nil];
-                    
+                    // update the last gesture location since a movent was detected
                     _lastGestureLocation = location;
+                    
                 }
                 
             }
             else if (diffX > 0) {
+                
                 // overall right movement
                 if (fabsf(diffX) > kSwipeXDirectionThreshold) {
+                    
                     // show the master view
-                    _isMasterVisible = YES;
+                    [self setMasterPaneShown:YES animated:YES];
                     
-                    [UIView animateWithDuration:0.2
-                                          delay:0.0
-                                        options:UIViewAnimationOptionCurveEaseOut
-                                     animations:^{
-                                         [weakSelf adjustFramesForInterfaceOrientation:interfaceOrientation];
-                                     }
-                                     completion:nil];
-                    
+                    // update the last gesture location since a movent was detected
                     _lastGestureLocation = location;
+                    
                 }
                 
             }
-            
-        }
-        else if (gestureRecognizer.state == UIGestureRecognizerStateEnded) {
-            
-            [self configureTapGestureRegonizer];
             
         }
         
@@ -473,7 +404,7 @@
     
     CGFloat xOffset = 0.0f;
     
-    if (UIInterfaceOrientationIsPortrait(interfaceOrientation) && [self shouldHideMasterViewControllerInOrientation:interfaceOrientation]) {
+    if ([self masterPaneCanBePresentedInOrientation:interfaceOrientation]) {
         
         if (_isMasterVisible) {
             xOffset = 0.0f;
@@ -484,8 +415,6 @@
         
     }
     
-    //NSLog(@"Should Adjust Master Frame To X: %f, Y: %f, W: %f, H: %f", xOffset, 0.0f, self.masterPaneWidth, self.view.bounds.size.height);
-    
     return CGRectMake(xOffset, 0.0f, self.masterPaneWidth, self.view.bounds.size.height);
     
 }
@@ -494,7 +423,7 @@
     
     CGFloat xOffset = self.masterPaneWidth;
     
-    if (UIInterfaceOrientationIsPortrait(interfaceOrientation) && [self shouldHideMasterViewControllerInOrientation:interfaceOrientation]) {
+    if ([self masterPaneCanBePresentedInOrientation:interfaceOrientation]) {
         xOffset = 0.0f;
     }
     
@@ -544,27 +473,76 @@
     
 }
 
-- (void)configureTapGestureRegonizer {
+- (void)configureGestureRecognizersForInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation {
     
     UIViewController *detail = [self.viewControllers objectAtIndex:1];
     
-    if (_isMasterVisible) {
-        // add the tap gesture recognizer
-        [detail.view addGestureRecognizer:self.detailTapGestureRecognizer];
+    if ([self masterPaneCanBePresentedInOrientation:interfaceOrientation] && self.presentsWithGesture && self.viewControllers) {
+        
+        if (_isMasterVisible) {
+            
+            CGRect masterFrame = [self masterPaneFrameForInterfaceOrientation:interfaceOrientation];
+            CGRect detailFrame = [self detailPaneFrameForInterfaceOrientation:interfaceOrientation];
+            
+            // there should be a gesture overlay to intercept touches and prevent them from leaking into the detail view
+            self.gestureOverlayView.frame = CGRectMake(masterFrame.size.width, 0.0f, detailFrame.size.width - masterFrame.size.width, detailFrame.size.height);
+            
+            // remove the gesture recognizers to the detail view
+            [detail.view removeGestureRecognizer:self.detailPanGestureRecognizer];
+            [detail.view removeGestureRecognizer:self.detailTapGestureRecognizer];
+            
+            // add the gesture overlay view as a subview to the view
+            [self.view addSubview:self.gestureOverlayView];
+            
+            // add the gesture recognizers to the overlay view
+            [self.gestureOverlayView addGestureRecognizer:self.detailPanGestureRecognizer];
+            [self.gestureOverlayView addGestureRecognizer:self.detailTapGestureRecognizer];
+            
+        }
+        else {
+            
+            // remove the gesture recognizers from the overlay view
+            [self.gestureOverlayView removeGestureRecognizer:self.detailPanGestureRecognizer];
+            [self.gestureOverlayView removeGestureRecognizer:self.detailTapGestureRecognizer];
+            
+            // remove the gesture overlay view from the view
+            [self.gestureOverlayView removeFromSuperview];
+            
+            // add the pan recognizer to the detail view
+            [detail.view addGestureRecognizer:self.detailPanGestureRecognizer];
+            
+        }
+        
     }
     else {
-        // remove the tap gesture recognizer
+        
+        /********************************************************************************************
+         NOTE: If the master pane can't be presented, then there is no reason for gesture recognizers
+         *******************************************************************************************/
+        
+        // remove the gesture recognizers from the overlay view
+        [self.gestureOverlayView removeGestureRecognizer:self.detailPanGestureRecognizer];
+        [self.gestureOverlayView removeGestureRecognizer:self.detailTapGestureRecognizer];
+        
+        // remove the gesture overlay view from the view
+        [self.gestureOverlayView removeFromSuperview];
+        
+        // remove the gesture recognizers from the view
+        [detail.view removeGestureRecognizer:self.detailPanGestureRecognizer];
         [detail.view removeGestureRecognizer:self.detailTapGestureRecognizer];
+        
     }
     
 }
 
-#pragma mark - Helpers (Layout Update)
+#pragma mark - Helpers (Layout Assistance)
 
 - (void)updateSplitViewForOrientation:(UIInterfaceOrientation)orientation {
     
     [self adjustFramesForInterfaceOrientation:orientation];
+    [self configureGestureRecognizersForInterfaceOrientation:orientation];
     
+    // trigger the relevant delegate methods
     if (UIInterfaceOrientationIsPortrait(orientation)) {
         
         [self splitViewWillRotateToPortraitOrientation];
@@ -581,6 +559,17 @@
         }
         
     }
+    
+}
+
+- (BOOL)masterPaneCanBePresentedInOrientation:(UIInterfaceOrientation)interfaceOrientation {
+    
+    /* 
+     The current idea with split view controller is that the master pane will always be shown in the landscape orientation, and in portrait orientation 
+     can be shown or hidden based on the delegate implementation. So based on these conditions, this method will return a boolean that informs wether or not
+     the master pane can be shown.
+     */
+    return UIInterfaceOrientationIsPortrait(interfaceOrientation) && [self shouldHideMasterViewControllerInOrientation:interfaceOrientation];
     
 }
 
