@@ -61,7 +61,7 @@
 @property (nonatomic, strong, readonly) UIBarButtonItem *barButtonItem;
 
 /**
- If the master pane can be hidden in portrait orientation (see GSSplitViewControllerDelegate), this boolean determines the initial state of the master pane (i.e. shown or hidden) each time the device is rotated to the portrait orientation.
+ If the master pane can be hidden in portrait orientation (see GSSplitViewControllerDelegate), this boolean determines the initial state of the master pane (i.e. shown or hidden) whenever the device is rotated to the portrait orientation.
  */
 @property (nonatomic, getter = isMasterPaneShownOnInitialRotationToPortrait) BOOL masterPaneShownOnInitialRotationToPortrait;
 
