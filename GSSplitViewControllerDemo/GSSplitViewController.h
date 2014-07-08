@@ -30,7 +30,7 @@
 @interface GSSplitViewController : UIViewController
 
 /**
- The delegate you want to receive split view controller messages.
+ The delegate object that will receive split view controller messages.
  */
 @property (nonatomic, weak) id <GSSplitViewControllerDelegate> delegate;
 
@@ -42,33 +42,33 @@
 @property (nonatomic, copy) NSArray *viewControllers;
 
 /**
- Specifies whether the left view controller ("a.k.a. Master View Controller") can be presented and dismissed via a swipe gesture.
+ Specifies whether the left view controller (a.k.a. Master Pane) can be presented and dismissed via a swipe gesture.
 
  The default value is YES.
  */
 @property (nonatomic) BOOL presentsWithGesture;
 
 /**
- Specifies the width of the left view controller ("a.k.a. Master View Controller").
+ Specifies the width of the left view controller (a.k.a. Master Pane).
 
- The default value is 320.0f.
+ @note The default value is 320.0f.
  */
 @property (nonatomic) CGFloat masterPaneWidth;
 
 /**
- The bar button item associated with the master pane hide and show action.
+ The bar button item associated with the master panes hide and show target-action.
  */
 @property (nonatomic, strong, readonly) UIBarButtonItem *barButtonItem;
 
 /**
- If the master pane can be hidden in portrait orientation (see GSSplitViewControllerDelegate), this boolean determines the initial state of the master pane (i.e. shown or hidden) when the device is rotated to portrait orientation.
+ If the master pane can be hidden in portrait orientation (see GSSplitViewControllerDelegate), this boolean determines the initial state of the master pane (i.e. shown or hidden) each time the device is rotated to the portrait orientation.
  */
 @property (nonatomic, getter = isMasterPaneShownOnInitialRotationToPortrait) BOOL masterPaneShownOnInitialRotationToPortrait;
 
 /**
- If the master pane can be hidden in portrait orientation (see GSSplitViewControllerDelegate), this method can either hide or show the master pane.
- @param masterPaneShown A boolean specifing wether the master pane is shown or not.
- @param animated A boolean specifing wether the transition should be animated.
+ If the master pane can be hidden in the portrait orientation (see GSSplitViewControllerDelegate), this method will either hide or show the master pane, optionnaly animating the transition.
+ @param masterPaneShown YES if the master pane should be shown, NO if it should be hidden.
+ @param animated YES if the transition should be animated, NO otherwise.
  */
 - (void)setMasterPaneShown:(BOOL)masterPaneShown animated:(BOOL)animated;
 

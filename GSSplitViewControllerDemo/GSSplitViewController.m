@@ -212,6 +212,7 @@
     _masterPaneWidth = masterPaneWidth;
     
     [self adjustFramesForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
+    [self configureGestureRecognizersForInterfaceOrientation:GS_STATUS_BAR_ORIENTATION()];
     
 }
 
