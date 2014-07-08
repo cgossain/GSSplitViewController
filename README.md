@@ -6,7 +6,7 @@ Notes
 GSSplitViewController Interface
 -----------------------------
 
-The GSSplitViewController interface mimics the UISplitViewController interface with the addition of the 'masterPaneWidth' property. This property allows you to change the width of the master pane.
+The GSSplitViewController interface mimics the UISplitViewController interface, and adds the ability to adjust the width of the master pane via the 'masterPaneWidth' property. It also adds a few other convenient properties and methods to help create a more custom user interface.
 
 GSSplitViewController Delegate
 ------------------------------
