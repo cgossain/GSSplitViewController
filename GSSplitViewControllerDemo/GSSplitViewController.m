@@ -103,6 +103,8 @@
     
     if (!_didLayoutViewControllers) {
         
+        // this is the initial layout of the split view controllers view controllers, subsequent layouts will consist only of frame changes.
+        
         UIViewController *master = [self.viewControllers objectAtIndex:0];
         UIViewController *detail = [self.viewControllers objectAtIndex:1];
         
@@ -194,6 +196,8 @@
         for (UIViewController *viewController in _viewControllers) {
             [self removeContentViewController:viewController];
         }
+        
+        _didLayoutViewControllers = NO; // new view controllers were provided, need to make sure they get layed out
         
     }
     
