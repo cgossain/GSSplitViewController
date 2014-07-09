@@ -270,8 +270,6 @@ NSString * const GSSplitViewControllerDidHideMasterPaneNotification = @"com.goss
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     
-    NSLog(@"GSSplitViewWillRotate");
-    
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     
     if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
@@ -298,8 +296,6 @@ NSString * const GSSplitViewControllerDidHideMasterPaneNotification = @"com.goss
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    
-    NSLog(@"GSSplitViewAnimateRotatation");
     
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
     
