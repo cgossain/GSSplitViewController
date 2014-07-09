@@ -1,3 +1,4 @@
+
 //
 // GSSplitViewController.m
 //
@@ -28,6 +29,9 @@
 #define kDivderWidth 1.0f / [[UIScreen mainScreen] scale]
 
 #define kSwipeXDirectionThreshold 60.0  // gesture needs to be greater than this value in the X direction to be considered a swipe
+
+NSString * const GSSplitViewControllerDidShowMasterPaneNotification = @"com.gossainsoftware.GSSplitViewControllerDidShowMasterPaneNotification";
+NSString * const GSSplitViewControllerDidHideMasterPaneNotification = @"com.gossainsoftware.GSSplitViewControllerDidHideMasterPaneNotification";
 
 @interface GSSplitViewController ()
 
@@ -170,6 +174,13 @@
             
         }
         
+        if (masterPaneShown) {
+            [[NSNotificationCenter defaultCenter] postNotificationName:GSSplitViewControllerDidShowMasterPaneNotification object:nil];
+        }
+        else {
+            [[NSNotificationCenter defaultCenter] postNotificationName:GSSplitViewControllerDidHideMasterPaneNotification object:nil];
+        }
+        
     }
     
 }
@@ -229,6 +240,20 @@
     
 }
 
+#pragma mark - Getters
+
+- (BOOL)isMasterPaneVisible {
+    
+    if ([self masterPaneCanBePresentedInOrientation:GS_STATUS_BAR_ORIENTATION()]) {
+        
+        return _isMasterVisible;
+        
+    }
+    
+    return YES; // if the master pane can't be presented (i.e. it can be hidden or shown) in a particular orientation, then it is technically always shown
+    
+}
+
 #pragma mark - Interface Orientation
 
 - (NSUInteger)supportedInterfaceOrientations {
@@ -245,14 +270,20 @@
 
 - (void)willRotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     
+    NSLog(@"GSSplitViewWillRotate");
+    
     [super willRotateToInterfaceOrientation:toInterfaceOrientation duration:duration];
     
     if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
         
+        _isMasterVisible = self.masterPaneShownOnInitialRotationToPortrait; // default state of the master pane when rotating to portrait
+        
         [self splitViewWillRotateToPortraitOrientation];
         
     }
-    else if (UIInterfaceOrientationIsLandscape(toInterfaceOrientation)) {
+    else {
+        
+        _isMasterVisible = YES; // master always shown in landscape orientation
         
         if ([self.delegate respondsToSelector:@selector(splitViewController:willShowViewController:invalidatingBarButtonItem:)]) {
             
@@ -268,17 +299,13 @@
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
     
+    NSLog(@"GSSplitViewAnimateRotatation");
+    
     [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
     
     // this rotation method is called from an animation block, therefore the following changes will be animated
-    if (UIInterfaceOrientationIsPortrait(toInterfaceOrientation)) {
-        _isMasterVisible = self.masterPaneShownOnInitialRotationToPortrait; // default state of the master pane when rotating to portrait
-    }
-    else {
-        _isMasterVisible = YES; // master always shown in landscape orientation
-    }
-    
     [self adjustFramesForInterfaceOrientation:toInterfaceOrientation];
+    [self configureGestureRecognizersForInterfaceOrientation:toInterfaceOrientation];
     
 }
 
@@ -332,7 +359,9 @@
 
 - (void)handleTapGesture:(UITapGestureRecognizer *)gestureRecognizer {
     
-    [self setMasterPaneShown:NO animated:YES];
+    if ([self masterPaneCanBePresentedInOrientation:GS_STATUS_BAR_ORIENTATION()]) {
+        [self setMasterPaneShown:NO animated:YES];
+    }
     
 }
 
@@ -358,7 +387,9 @@
                 if (fabsf(diffX) > kSwipeXDirectionThreshold) {
                     
                     // hide the master view
-                    [self setMasterPaneShown:NO animated:YES];
+                    if (_isMasterVisible) {
+                        [self setMasterPaneShown:NO animated:YES];
+                    }
                     
                     // update the last gesture location since a movent was detected
                     _lastGestureLocation = location;
@@ -372,7 +403,9 @@
                 if (fabsf(diffX) > kSwipeXDirectionThreshold) {
                     
                     // show the master view
-                    [self setMasterPaneShown:YES animated:YES];
+                    if (!_isMasterVisible) {
+                        [self setMasterPaneShown:YES animated:YES];
+                    }
                     
                     // update the last gesture location since a movent was detected
                     _lastGestureLocation = location;

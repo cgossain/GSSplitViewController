@@ -25,6 +25,9 @@
 
 #define GS_STATUS_BAR_ORIENTATION() [[UIApplication sharedApplication] statusBarOrientation]
 
+extern NSString * const GSSplitViewControllerDidShowMasterPaneNotification;
+extern NSString * const GSSplitViewControllerDidHideMasterPaneNotification;
+
 @protocol GSSplitViewControllerDelegate;
 
 @interface GSSplitViewController : UIViewController
@@ -58,7 +61,7 @@
 /**
  The bar button item associated with the master panes hide and show target-action.
  */
-@property (nonatomic, strong, readonly) UIBarButtonItem *barButtonItem;
+@property (readonly, nonatomic, strong) UIBarButtonItem *barButtonItem;
 
 /**
  If the master pane can be hidden in portrait orientation (see GSSplitViewControllerDelegate), this boolean determines the initial state of the master pane (i.e. shown or hidden) whenever the device is rotated to the portrait orientation.
@@ -66,9 +69,16 @@
 @property (nonatomic, getter = isMasterPaneShownOnInitialRotationToPortrait) BOOL masterPaneShownOnInitialRotationToPortrait;
 
 /**
+ A Boolean value indicating whether the master pane is currently visible. (read-only)
+ @note If the device is in landscape orientation, this property will always return YES.
+ */
+@property (readonly, nonatomic, getter = isMasterPaneVisible) BOOL masterPaneVisible;
+
+/**
  If the master pane can be hidden in the portrait orientation (see GSSplitViewControllerDelegate), this method will either hide or show the master pane, optionnaly animating the transition.
  @param masterPaneShown YES if the master pane should be shown, NO if it should be hidden.
  @param animated YES if the transition should be animated, NO otherwise.
+ @note The notifications, kGSSplitViewControllerDidShowMasterPaneNotification and kGSSplitViewControllerDidHideMasterPaneNotification, are posted acording to whether the master pane is set to be shown or hidden.
  */
 - (void)setMasterPaneShown:(BOOL)masterPaneShown animated:(BOOL)animated;
 
