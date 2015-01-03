@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		866B08A41A588C400015D87C /* GSSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 866B08A31A588C400015D87C /* GSSplitViewController.m */; };
 		AAE31354191EF70F00982DC8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE31353191EF70F00982DC8 /* Foundation.framework */; };
 		AAE31356191EF70F00982DC8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE31355191EF70F00982DC8 /* CoreGraphics.framework */; };
 		AAE31358191EF70F00982DC8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE31357191EF70F00982DC8 /* UIKit.framework */; };
@@ -21,7 +22,6 @@
 		AAE31378191EF70F00982DC8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AAE31357191EF70F00982DC8 /* UIKit.framework */; };
 		AAE31380191EF70F00982DC8 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = AAE3137E191EF70F00982DC8 /* InfoPlist.strings */; };
 		AAE31382191EF70F00982DC8 /* GSSplitViewControllerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE31381191EF70F00982DC8 /* GSSplitViewControllerDemoTests.m */; };
-		AAE3138E191EF74E00982DC8 /* GSSplitViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAE3138D191EF74E00982DC8 /* GSSplitViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +35,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		866B08A21A588C400015D87C /* GSSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSplitViewController.h; sourceTree = "<group>"; };
+		866B08A31A588C400015D87C /* GSSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSSplitViewController.m; sourceTree = "<group>"; };
 		AAE31350191EF70F00982DC8 /* GSSplitViewControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GSSplitViewControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		AAE31353191EF70F00982DC8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		AAE31355191EF70F00982DC8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -55,8 +57,6 @@
 		AAE3137D191EF70F00982DC8 /* GSSplitViewControllerDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GSSplitViewControllerDemoTests-Info.plist"; sourceTree = "<group>"; };
 		AAE3137F191EF70F00982DC8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		AAE31381191EF70F00982DC8 /* GSSplitViewControllerDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GSSplitViewControllerDemoTests.m; sourceTree = "<group>"; };
-		AAE3138C191EF74E00982DC8 /* GSSplitViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GSSplitViewController.h; sourceTree = "<group>"; };
-		AAE3138D191EF74E00982DC8 /* GSSplitViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GSSplitViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,9 +83,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		866B08A11A588C400015D87C /* GSSplitViewController */ = {
+			isa = PBXGroup;
+			children = (
+				866B08A21A588C400015D87C /* GSSplitViewController.h */,
+				866B08A31A588C400015D87C /* GSSplitViewController.m */,
+			);
+			path = GSSplitViewController;
+			sourceTree = "<group>";
+		};
 		AAE31347191EF70F00982DC8 = {
 			isa = PBXGroup;
 			children = (
+				866B08A11A588C400015D87C /* GSSplitViewController */,
 				AAE31359191EF70F00982DC8 /* GSSplitViewControllerDemo */,
 				AAE3137B191EF70F00982DC8 /* GSSplitViewControllerDemoTests */,
 				AAE31352191EF70F00982DC8 /* Frameworks */,
@@ -116,7 +126,6 @@
 		AAE31359191EF70F00982DC8 /* GSSplitViewControllerDemo */ = {
 			isa = PBXGroup;
 			children = (
-				AAE3138B191EF72700982DC8 /* GSSplitViewController */,
 				AAE31362191EF70F00982DC8 /* GSAppDelegate.h */,
 				AAE31363191EF70F00982DC8 /* GSAppDelegate.m */,
 				AAE31368191EF70F00982DC8 /* GSMasterViewController.h */,
@@ -156,15 +165,6 @@
 				AAE3137E191EF70F00982DC8 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		AAE3138B191EF72700982DC8 /* GSSplitViewController */ = {
-			isa = PBXGroup;
-			children = (
-				AAE3138C191EF74E00982DC8 /* GSSplitViewController.h */,
-				AAE3138D191EF74E00982DC8 /* GSSplitViewController.m */,
-			);
-			name = GSSplitViewController;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -264,7 +264,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AAE3138E191EF74E00982DC8 /* GSSplitViewController.m in Sources */,
+				866B08A41A588C400015D87C /* GSSplitViewController.m in Sources */,
 				AAE3136A191EF70F00982DC8 /* GSMasterViewController.m in Sources */,
 				AAE31364191EF70F00982DC8 /* GSAppDelegate.m in Sources */,
 				AAE31360191EF70F00982DC8 /* main.m in Sources */,
@@ -467,6 +467,7 @@
 				AAE31387191EF70F00982DC8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		AAE31388191EF70F00982DC8 /* Build configuration list for PBXNativeTarget "GSSplitViewControllerDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -475,6 +476,7 @@
 				AAE3138A191EF70F00982DC8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
